@@ -181,6 +181,11 @@ public class UpdatesSettings extends PreferenceActivity implements
             // Turn on the Options Menu
             invalidateOptionsMenu();
         }
+
+        // If running on a phone, remove padding around the listview
+        if (!ScreenType.isTablet(this)) {
+            getListView().setPadding(0, 0, 0, 0);
+        }
     }
 
     @Override
@@ -973,6 +978,12 @@ public class UpdatesSettings extends PreferenceActivity implements
                 .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing and allow the dialog to be dismissed
+                    }
+                })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
                         mStartUpdateVisible = false;
                     }
                 })
